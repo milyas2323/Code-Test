@@ -37,7 +37,7 @@ class BookingController extends Controller
     {
         if($user_id = $request->get('user_id')) {
 
-            $response = $this->repository->getUsersJobs($user_id);
+            $response = $this->repository->getUsersJobs($user_id); 
 
         }
         elseif($request->__authenticatedUser->user_type == env('ADMIN_ROLE_ID') || $request->__authenticatedUser->user_type == env('SUPERADMIN_ROLE_ID'))
@@ -82,7 +82,7 @@ class BookingController extends Controller
     {
         $data = $request->all();
         $cuser = $request->__authenticatedUser;
-        $response = $this->repository->updateJob($id, array_except($data, ['_token', 'submit']), $cuser);
+        $response = $this->repository->updateJob($id, array_except($data, ['_token', 'submit']), $cuser); //This function is missing in BookingRepository.php Class
 
         return response($response);
     }
@@ -96,7 +96,7 @@ class BookingController extends Controller
         $adminSenderEmail = config('app.adminemail');
         $data = $request->all();
 
-        $response = $this->repository->storeJobEmail($data);
+        $response = $this->repository->storeJobEmail($data); //This function is missing in BookingRepository.php Class
 
         return response($response);
     }
@@ -109,7 +109,7 @@ class BookingController extends Controller
     {
         if($user_id = $request->get('user_id')) {
 
-            $response = $this->repository->getUsersJobsHistory($user_id, $request);
+            $response = $this->repository->getUsersJobsHistory($user_id, $request); //This function is missing in BookingRepository.php Class
             return response($response);
         }
 
@@ -135,7 +135,7 @@ class BookingController extends Controller
         $data = $request->get('job_id');
         $user = $request->__authenticatedUser;
 
-        $response = $this->repository->acceptJobWithId($data, $user);
+        $response = $this->repository->acceptJobWithId($data, $user); //This function is missing in BookingRepository.php Class
 
         return response($response);
     }
@@ -149,7 +149,7 @@ class BookingController extends Controller
         $data = $request->all();
         $user = $request->__authenticatedUser;
 
-        $response = $this->repository->cancelJobAjax($data, $user);
+        $response = $this->repository->cancelJobAjax($data, $user); //This function is missing in BookingRepository.php Class
 
         return response($response);
     }
@@ -172,7 +172,7 @@ class BookingController extends Controller
     {
         $data = $request->all();
 
-        $response = $this->repository->customerNotCall($data);
+        $response = $this->repository->customerNotCall($data); //This function is missing in BookingRepository.php Class
 
         return response($response);
 
@@ -187,7 +187,7 @@ class BookingController extends Controller
         $data = $request->all();
         $user = $request->__authenticatedUser;
 
-        $response = $this->repository->getPotentialJobs($user);
+        $response = $this->repository->getPotentialJobs($user); //This function is missing in BookingRepository.php Class
 
         return response($response);
     }
@@ -267,7 +267,7 @@ class BookingController extends Controller
         $data = $request->all();
         $job = $this->repository->find($data['jobid']);
         $job_data = $this->repository->jobToData($job);
-        $this->repository->sendNotificationTranslator($job, $job_data, '*');
+        $this->repository->sendNotificationTranslator($job, $job_data, '*'); //This function is missing in BookingRepository.php Class
 
         return response(['success' => 'Push sent']);
     }
@@ -280,11 +280,11 @@ class BookingController extends Controller
     public function resendSMSNotifications(Request $request)
     {
         $data = $request->all();
-        $job = $this->repository->find($data['jobid']);
+        $job  = $this->repository->find($data['jobid']);
         $job_data = $this->repository->jobToData($job);
 
         try {
-            $this->repository->sendSMSNotificationToTranslator($job);
+            $this->repository->sendSMSNotificationToTranslator($job); //This function is missing in BookingRepository.php Class
             return response(['success' => 'SMS sent']);
         } catch (\Exception $e) {
             return response(['success' => $e->getMessage()]);
